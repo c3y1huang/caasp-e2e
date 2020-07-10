@@ -21,7 +21,7 @@ Background:
 ```
 
 ## JSON file
-Tests can take JSON files and with uses of `.` notation in tests to retrieve the variables. This is perticulary useful when you have pre-existing cluster.
+Tests can take JSON files and with uses of `.` notation in tests to retrieve the variables. This is particularly useful when you have pre-existing cluster.
 
 For example:
 ```

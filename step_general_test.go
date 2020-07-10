@@ -14,6 +14,7 @@ import (
 )
 
 var InterceptedStdout bytes.Buffer
+var CheckString string
 
 func executableInstalledOnLocalMachine(name string) error {
     _, err := exec.LookPath(name)
@@ -56,13 +57,6 @@ func iCanRunCmdStr(desc, input string) error {
 func runCmd(input string, out io.Writer) (string, error) {
     var cmd *exec.Cmd
     cmd = exec.Command("bash", "-c", input)
-    // switch isPipe {
-    // case true: 
-    //     cmd = exec.Command("bash", "-c", input)
-    // case false:
-    //     args := strings.Fields(input)
-    //     cmd = exec.Command(args[0], args[1:]...)
-    // }
     cmd.Stdout = out
     if err := cmd.Run(); err != nil {
         return cmd.String(), err
@@ -74,7 +68,7 @@ func outputPrints(expectedDocString *gherkin.DocString) error {
     var actual = InterceptedStdout.String()
     var expected = expectedDocString.Content
     if expected != actual {
-        return fmt.Errorf("\nexpected:\n%s\nactual:\n%s", expected, actual)
+        return fmt.Errorf("\nwant:\n%s\ngot:\n%s", expected, actual)
     }
     return nil
 }
@@ -89,6 +83,15 @@ func outputContainsStringInLines(match string) error {
         if !strings.Contains(line, match) {
             return fmt.Errorf("expect output to contain %s\nactual:\n%s", match, line)
         }
+    }
+    return nil
+}
+
+func itPrints(expectedDocString *gherkin.DocString) error {
+    var actual = CheckString
+    var expected = expectedDocString.Content
+    if expected != actual {
+        return fmt.Errorf("\nwant:\n%s\ngot:\n%s", expected, actual)
     }
     return nil
 }
@@ -121,13 +124,12 @@ func retry(attempts int, sleep time.Duration, callback func() error) (err error)
         }
 
         time.Sleep(sleep)
-
-        // fmt.Printf("retrying after error:%v\n", err)
     }
     return fmt.Errorf("after %d attempts, last error: %s", attempts, err)
 }
 
 func GeneralContext(s *godog.Suite) {
+    s.Step(`^it prints:$`, itPrints)
     s.Step(`^output prints:$`, outputPrints)
     s.Step(`^"([^"]*)" installed on local machine$`, executableInstalledOnLocalMachine)
     s.Step(`^I can run command to "([^"]*)":$`, iCanRunCmd)

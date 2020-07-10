@@ -2,6 +2,7 @@ Feature: vSphere Cloud Provider
 
   Background:
     Given "kubectl" installed on local machine
+    And cluster access from "../cluster/cluster_1/admin.conf"
     And I can run command to "verify cluster running":
       """
       kubectl cluster-info

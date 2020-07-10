@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/c3y1huang/caasp-e2e/tree/master.svg?style=svg)](https://circleci.com/gh/c3y1huang/caasp-e2e/tree/master)
+
 # CaaSP-e2e
 CaaSP e2e tests with godog.
 

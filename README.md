@@ -2,7 +2,7 @@
 CaaSP e2e tests with godog
 
 # Requirement
-* [Godog](https://github.com/cucumber/godog)
+* [godog](https://github.com/cucumber/godog)
 * [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 * [govc](https://github.com/vmware/govmomi/tree/master/govc) (vSphere)
 
@@ -14,13 +14,14 @@ godog
 
 # Write Tests
 ## Cluster Access
-Use `cluster access from` in each test *Feature* to specify the kubernetes configuration file. For example
+Use `cluster access from` in each test *Feature* to specify the kubernetes configuration file path. For example
 ```
-cluster access from "../cluster/cluster_1/admin.conf"
+Background:
+    cluster access from "../cluster/cluster_1/admin.conf"
 ```
 
 ## JSON file
-Tests can take JSON files and with uses of dot notation in tests to retrieve the variables. This is perticulary useful when you have pre-existing cluster.
+Tests can take JSON files and with uses of `.` notation in tests to retrieve the variables. This is perticulary useful when you have pre-existing cluster.
 
 For example:
 ```

@@ -19,7 +19,7 @@ import (
 	"github.com/cucumber/godog"
 )
 
-// InitializeScenario initialize feature object and steps
+//InitializeScenario initialize feature object and steps
 func InitializeScenario(ctx *godog.ScenarioContext) {
 	l, err := NewLocal()
 	if err != nil {

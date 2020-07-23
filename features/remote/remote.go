@@ -55,14 +55,14 @@ type Result struct {
 	Stdout string
 }
 
-// NewClient returns ClientConfig object
+//NewClient returns ClientConfig object
 func NewClient() (*Client, error) {
 	var c Client
 
-	// host port
+	//host port
 	c.Port = DefaultPort
 
-	// ssh client config
+	//SSH client config
 	privateBytes, err := ioutil.ReadFile(filepath.Join(os.Getenv("HOME"), ".ssh", "id_rsa"))
 	if err != nil {
 		return &c, fmt.Errorf("failed to load private key: %v", err)
@@ -89,7 +89,7 @@ func NewClient() (*Client, error) {
 	return &c, nil
 }
 
-// getHostIP returns list of IPs from matching hostname in cluster state JSON string
+//getHostIP returns list of IPs from matching hostname in cluster state JSON string
 func (c *Client) getHostIP(hosts []string) []string {
 	var ips []string
 	for _, host := range hosts {
@@ -126,7 +126,7 @@ func (c *Client) RunCmdBlockOnHosts(hosts, description string, input *godog.DocS
 	return nil
 }
 
-// RunCmd create ssh session and run command on single host and return stdout
+//RunCmd create ssh session and run command on single host and return stdout
 func (c *Client) RunCmd(cmd, host string) string {
 	conn, err := ssh.Dial("tcp", fmt.Sprintf("%s:%d", host, c.Port), c.Config)
 	if err != nil {
@@ -143,7 +143,7 @@ func (c *Client) RunCmd(cmd, host string) string {
 	return stdoutBuf.String()
 }
 
-// UploadFileToHosts copy file from local machine to hosts
+//UploadFileToHosts copy file from local machine to hosts
 func (c *Client) UploadFileToHosts(file, hosts, dir string) error {
 	c.Results = []Result{}
 	hosts = strings.ReplaceAll(hosts, " ", "")
@@ -164,7 +164,7 @@ func (c *Client) UploadFileToHosts(file, hosts, dir string) error {
 	return nil
 }
 
-// UploadFile copy file from local machine to single host
+//UploadFile copy file from local machine to single host
 func (c *Client) UploadFile(src, host, dst string) error {
 	conn, err := ssh.Dial("tcp", fmt.Sprintf("%s:%d", host, c.Port), c.Config)
 	if err != nil {

@@ -141,8 +141,8 @@ func retry(attempts int, sleep time.Duration, callback func() error) (err error)
 	return fmt.Errorf("after %d attempts, last error: %s", attempts, err)
 }
 
-//TranslateAbsolutePathFromEnv checks if give environment variable resolves to a valid path,
-// returns absolute path.
+//TranslateAbsolutePathFromEnv checks if give environment variable 
+//resolves to a valid path. Returns absolute path.
 func TranslateAbsolutePathFromEnv(name string) (string, error) {
 	fpath, ok := os.LookupEnv(name)
 	if !ok {

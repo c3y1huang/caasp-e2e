@@ -120,7 +120,7 @@ func (v *VSphere) createCloudConf() error {
 		return fmt.Errorf(local.MissingEnvVariable, EnvClusterZone)
 	}
 
-	// create file from template
+	//create file from template
 	var t *template.Template
 	fWriter, err := os.Create(CloudConf)
 	if err != nil {

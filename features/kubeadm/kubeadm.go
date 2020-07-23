@@ -117,7 +117,7 @@ func NewKubeadm() (*Kubeadm, error) {
 	return &k, nil
 }
 
-// readKubeadmConfig unmarshals YAML file to K8s ConfigMap obejct
+//readKubeadmConfig unmarshals YAML file to K8s ConfigMap obejct
 func (k *Kubeadm) readKubeadmConfig(path string) error {
 	f, err := ioutil.ReadFile(path)
 	if err != nil {

@@ -18,7 +18,7 @@ import (
 	"log"
 )
 
-// InitializeScenario initialize feature object and steps
+//InitializeScenario initialize feature object and steps
 func InitializeScenario(ctx *godog.ScenarioContext) {
 	k, err := NewKubeadm()
 	if err != nil {

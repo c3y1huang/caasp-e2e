@@ -19,7 +19,7 @@ import (
 	"github.com/cucumber/godog"
 )
 
-// InitializeScenario initialize feature object and steps
+//InitializeScenario initialize feature object and steps
 func InitializeScenario(ctx *godog.ScenarioContext) {
 	k, err := NewKubectl()
 	if err != nil {

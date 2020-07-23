@@ -18,11 +18,10 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strings"
 	"time"
-
-	"os/exec"
 
 	"github.com/cucumber/godog"
 )

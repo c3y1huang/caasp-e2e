@@ -15,12 +15,11 @@ package cluster
 
 import (
 	"fmt"
-	// "os"
 
 	"github.com/cucumber/godog"
 	"github.com/tidwall/gjson"
 
-	local "github.com/c3y1huang/caasp-e2e/features/local"
+	"github.com/c3y1huang/caasp-e2e/features/local"
 )
 
 const (

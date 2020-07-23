@@ -14,16 +14,24 @@ limitations under the License.
 package kubectl
 
 import (
-	"log"
+	"fmt"
 
 	"github.com/cucumber/godog"
+
+	"github.com/c3y1huang/caasp-e2e/features/local"
 )
 
-//InitializeScenario initialize feature object and steps
-func InitializeScenario(ctx *godog.ScenarioContext) {
-	k, err := NewKubectl()
-	if err != nil {
-		log.Fatal(err)
-	}
-	ctx.Step(`^I create "([^"]*)" with manifest:$`, k.createK8sResourceWithManifest)
+//Kubectl object
+type Kubectl struct {
+	Local local.Local
+}
+
+//NewKubectl returns Kubectl object
+func NewKubectl() (*Kubectl, error) {
+	var k Kubectl
+	return &k, nil
+}
+
+func (k *Kubectl) createK8sResourceWithManifest(resource string, manifest *godog.DocString) error {
+	return k.Local.RunCmdSimple("", fmt.Sprintf("cat <<EOF | kubectl apply -f -\n%s\nEOF", manifest.Content))
 }

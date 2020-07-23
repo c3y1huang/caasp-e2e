@@ -14,8 +14,9 @@ limitations under the License.
 package cluster
 
 import (
-	"github.com/cucumber/godog"
 	"log"
+	
+	"github.com/cucumber/godog"
 )
 
 // InitializeScenario initialize feature object and steps

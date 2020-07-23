@@ -29,7 +29,7 @@ Create:
 ```
 <1> Test scenarios.
 
-<2> The steps maps to the test scenarios.
+<2> The steps maps to the test scenarios. Required because golang does not see package with filename suffixed `_test`.
 
 <3> Entry point to the steps.
 

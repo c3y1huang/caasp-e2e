@@ -28,8 +28,11 @@ Create:
 /feature/<feature_name>/steps.go <4>
 ```
 <1> Test scenarios.
+
 <2> The steps maps to the test scenarios.
+
 <3> Entry point to the steps.
+
 <4> Step implementations.
 
 Then import to the `/regression/smoke/smoke_test.go`.

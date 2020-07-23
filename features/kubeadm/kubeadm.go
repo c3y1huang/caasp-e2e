@@ -134,7 +134,6 @@ func (k *Kubeadm) readKubeadmConfig(path string) error {
 		return fmt.Errorf("failed to unmarshal yaml: %v", err)
 	}
 
-	// fmt.Printf("%v", l.ClusterConfiguration.APIServer.ExtraArgs.CloudConfig)
 	return nil
 }
 

@@ -9,49 +9,48 @@ CaaSP e2e tests with godog.
 * [govc](https://github.com/vmware/govmomi/tree/master/govc) (vSphere)
 
 ## Run test
-You need a running cluster before execution:
+You need a running cluster:
 ```bash
-godog
+cd regression/smoke
+godog\
+ --tags "@enableCloudProviderVSphere,@vSphereCloudProviderStorageClass"\
+ ../../features/
 ```
 
 ## Write Tests
-### Cluster Access
-Use `cluster access from` in each test *Feature* to specify the kubernetes configuration file path. For example
-```
-Background:
-    cluster access from "../cluster/cluster_1/admin.conf"
-```
 
-### JSON file
-Tests use `.` notation in tests to get JSON data from file. This is particularly useful when you have infrastructure provisioned automatically with dynamic values.
-
-For example:
-```json
-{
-  "cluster_1": {
-    "platform": "vmware",
-    "master": {
-      "caasp-cluster-abc-1-master-1": {
-        "ip": "10.84.73.87",
-        "disable": "False",
-        "skuba_name": "010084073087"
-      }
-    }
-  }
-}
+### Implement Features Tests and Steps
+Create:
 ```
+/feature/<feature_name>.feature // <1>
+/feature/<feature_name>/<feature_name>.go <2>
+/feature/<feature_name>/<feature_name>_test.go <3>
+/feature/<feature_name>/steps.go <4>
+```
+<1> Test scenarios.
+<2> The steps maps to the test scenarios.
+<3> Entry point to the steps.
+<4> Step implementations.
+
+Then import to the `/regression/smoke/smoke_test.go`.
+
+Original skeleton reference: https://github.com/innobead/caasp-e2e
+
+### Get Value from JSON file
+Tests use `.` notation to get JSON data from file. This is particularly useful when you have infrastructure provisioned automatically with dynamic values.
+
 ```
   Background:
     Given cluster info from "cluster/logs/cluster_state.json"
 
   Scenario: Cluster info
-    When I search "cluster_1.platform" in cluster info
+    When I search "caasp-cluster.platform" in cluster info
     Then it prints:
     """
     vmware
     """
 
-    When I search "cluster_1.master.caasp-cluster-abc-1-master-1.ip" in cluster info
+    When I search "caasp-cluster.master.caasp-master-0.ip" in cluster info
     Then it prints:
     """
     10.84.73.87

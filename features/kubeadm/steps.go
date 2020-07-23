@@ -11,22 +11,20 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package main
+package kubeadm
 
 import (
-	"fmt"
-
 	"github.com/cucumber/godog"
+	"log"
 )
 
-func createVSphereDatastoreDiskIfNotExist(diskSize, disk, datacenter, datastore string) error {
-	err := iCanRunCmdStr("", fmt.Sprintf("govc datastore.disk.info -dc %s -ds %s %s", datacenter, datastore, disk))
+// InitializeScenario initialize feature object and steps
+func InitializeScenario(ctx *godog.ScenarioContext) {
+	k, err := NewKubeadm()
 	if err != nil {
-		return iRunCmdStr("", fmt.Sprintf("govc datastore.disk.create -dc %s -ds %s -size %s %s", datacenter, datastore, diskSize, disk))
+		log.Fatal(err)
 	}
-	return nil
-}
-
-func VSphereContext(s *godog.Suite) {
-	s.Step(`^I create "([^"]*)" "([^"]*)" in vSphere "([^"]*)" and "([^"]*)"$`, createVSphereDatastoreDiskIfNotExist)
+	ctx.Step(`^I open configmap kubeadm-config from "([^"]*)"$`, k.readKubeadmConfig)
+	ctx.Step(`^enable "([^"]*)" cloud provider in configmap kubeadm-config$`, k.enableCloudProvider)
+	ctx.Step(`^save configmap kubeadm-config to "([^"]*)"$`, k.writeKubeadmConfigFile)
 }

@@ -1,18 +1,21 @@
+@robotFramework
 Feature: RobotFramework Integration
 
   Background:
     Given "kubectl" installed on local machine
-    And cluster access from "../cluster/cluster_1/admin.conf"
-    And cluster info from "cluster/logs/cluster_state.json"
+    And environment variables exported:
+      """
+      GODOG_CLUSTER_JSON_FILE
+      """
 
   Scenario: Cluster info
-    When I search "cluster_1.platform" in cluster info
-    Then it prints:
+    When I search "cluster-0.platform" in cluster info
+    Then I found:
     """
     vmware
     """
-    When I search "cluster_1.master.caasp-cluster-abc-1-master-1.ip" in cluster info
-    Then it prints:
+    When I search "cluster-0.lb.ip" in cluster info
+    Then I found:
     """
-    10.84.73.87
+    10.84.72.44
     """

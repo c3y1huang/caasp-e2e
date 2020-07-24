@@ -25,5 +25,5 @@ func InitializeScenario(ctx *godog.ScenarioContext) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	ctx.Step(`^I create "([^"]*)" with manifest:$`, k.createK8sResourceWithManifest)
+	ctx.Step(`^I create "([^"]*)" with manifest:$`, k.ApplyManifest)
 }

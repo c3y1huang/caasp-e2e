@@ -88,8 +88,8 @@ func NewClient() (*Client, error) {
 	return &c, nil
 }
 
-//getHostIP returns list of IPs from matching hostname in cluster state JSON string
-func (c *Client) getHostIP(hosts []string) []string {
+//getClusterIPs returns list of IPs from matching hostname in cluster state JSON string
+func (c *Client) getClusterIPs(hosts []string) []string {
 	var ips []string
 	for _, host := range hosts {
 		ip := gjson.Get(string(c.Cluster), host+".ip")
@@ -107,7 +107,7 @@ func (c *Client) RunCmdBlockOnHosts(hosts, description string, input *godog.DocS
 	hostList = strings.Split(hosts, ",")
 
 	var wg sync.WaitGroup
-	for _, ip := range c.getHostIP(hostList) {
+	for _, ip := range c.getClusterIPs(hostList) {
 		wg.Add(1)
 		go func(ip string) {
 			defer wg.Done()
@@ -151,7 +151,7 @@ func (c *Client) UploadFileToHosts(file, hosts, dir string) error {
 	hostList = strings.Split(hosts, ",")
 
 	var wg sync.WaitGroup
-	for _, ip := range c.getHostIP(hostList) {
+	for _, ip := range c.getClusterIPs(hostList) {
 		wg.Add(1)
 		go func(ip string) {
 			defer wg.Done()

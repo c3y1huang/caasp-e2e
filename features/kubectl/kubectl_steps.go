@@ -32,6 +32,7 @@ func NewKubectl() (*Kubectl, error) {
 	return &k, nil
 }
 
-func (k *Kubectl) createK8sResourceWithManifest(resource string, manifest *godog.DocString) error {
+//ApplyManifest run with kubectl command to apply given manifest file
+func (k *Kubectl) ApplyManifest(resource string, manifest *godog.DocString) error {
 	return k.Local.RunCmdSimple("", fmt.Sprintf("cat <<EOF | kubectl apply -f -\n%s\nEOF", manifest.Content))
 }

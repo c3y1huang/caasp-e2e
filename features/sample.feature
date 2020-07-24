@@ -1,5 +1,5 @@
-@robotFramework
-Feature: RobotFramework Integration
+@sample
+Feature: Sample
 
   Background:
     Given "kubectl" installed on local machine
